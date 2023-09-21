@@ -3,9 +3,9 @@ import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
 import tailwind from '@astrojs/tailwind'
 
-// https://astro.build/config
+// https://docs.astro.build/en/reference/configuration-reference/#overview
 export default defineConfig({
-	/* Dev mode */
+	/* Dev & preview mode */
 	server: {
 		port: 6996,
 	},
