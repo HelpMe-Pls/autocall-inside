@@ -3,5 +3,10 @@
   "tabWidth": 2,
   "useTabs": true,
   "semi": false,
-  "singleQuote": true
+  "singleQuote": true,
+  "plugins": [
+    "prettier-plugin-astro",
+    "prettier-plugin-tailwindcss"
+  ],
+  "pluginSearchDirs": false
 }
