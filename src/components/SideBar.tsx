@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { useState, useRef } from 'react'
-import SubMenu from './DropdownMenu'
-import { NavLink } from 'react-router-dom'
+// import SubMenu from './DropdownMenu'
+// import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 // * React icons
@@ -64,13 +64,13 @@ const Sidebar = () => {
 				<div className="flex flex-col">
 					<ul className=" flex h-[calc(100vh-108px)] flex-col gap-1 px-2.5 pt-5 text-[0.9rem]  font-medium">
 						<SingleNavItem
-							path={'/'}
+							path={'/dashboard'}
 							text="All Apps"
 							isSidebarExpanded={open}
 							icon={<AiOutlineAppstore size={23} className="min-w-max" />}
 						/>
 						<SingleNavItem
-							path={'/authentication'}
+							path={'/customers'}
 							text="Authentication"
 							isSidebarExpanded={open}
 							icon={<BsPerson size={23} className="min-w-max" />}
@@ -85,7 +85,7 @@ const Sidebar = () => {
 						</div> */}
 
 						<SingleNavItem
-							path={'/settings'}
+							path={'/other'}
 							text="Settings"
 							isSidebarExpanded={open}
 							icon={<SlSettings size={23} className="min-w-max" />}
@@ -121,8 +121,8 @@ const Sidebar = () => {
 }
 
 const SingleNavItem = ({ path, icon, text, isSidebarExpanded }) => (
-	<li>
-		<NavLink to={path} className="link group relative">
+	<li className="link group relative">
+		<a href={path}>
 			{icon}
 			<span className="whitespace-nowrap">{isSidebarExpanded && text}</span>
 			{!isSidebarExpanded && (
@@ -135,7 +135,7 @@ const SingleNavItem = ({ path, icon, text, isSidebarExpanded }) => (
 					{text}
 				</span>
 			)}
-		</NavLink>
+		</a>
 	</li>
 )
 
