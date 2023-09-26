@@ -1,7 +1,11 @@
 ---
-import Wrapper from '../layouts/Wrapper.astro'
+import Wrapper from '@/layouts/Wrapper.astro'
+import SideBar from '@/components/SideBar'
 ---
 
 <Wrapper>
-	<h3>Home</h3>
+	<SideBar client:load />
+	<main class="mx-auto max-w-5xl flex-1 py-4">
+		<slot />
+	</main>
 </Wrapper>

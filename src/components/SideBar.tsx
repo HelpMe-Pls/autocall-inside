@@ -76,13 +76,13 @@ const Sidebar = () => {
 							icon={<BsPerson size={23} className="min-w-max" />}
 						/>
 
-						<div className="border-slate-300 ">
+						{/* <div className="border-slate-300 ">
 							{subMenusList?.map((menu) => (
 								<div key={menu.name} className="flex flex-col gap-1">
 									<SubMenu data={menu} isSidebarExpanded={open} />
 								</div>
 							))}
-						</div>
+						</div> */}
 
 						<SingleNavItem
 							path={'/settings'}
