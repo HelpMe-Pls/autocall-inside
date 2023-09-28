@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { IoIosArrowDown } from 'react-icons/io'
-import { NavLink, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const DropdownMenu = ({ data, isSidebarExpanded }) => {
 	const { pathname } = useLocation()
@@ -57,9 +57,9 @@ const DropdownMenu = ({ data, isSidebarExpanded }) => {
 			>
 				{data.menus?.map((menu) => (
 					<li key={menu}>
-						<NavLink to={`/${data.name}/${menu}`} className="link capitalize">
+						<a href={`/${data.name}/${menu}`} className="link capitalize">
 							{menu.split('-').join(' ')}
-						</NavLink>
+						</a>
 					</li>
 				))}
 			</motion.ul>

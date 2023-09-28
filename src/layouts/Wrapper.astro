@@ -1,13 +1,27 @@
 ---
-import Theme from './Theme.astro'
 import SideBar from '../components/SideBar.tsx'
 
 import '../styles/index.css'
 ---
 
-<Theme>
-	<SideBar client:load />
-	<main class="mx-auto max-w-5xl flex-1 py-4">
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>Autocall Inside</title>
+
+		<meta name="author" content="Khoi Le" />
+	</head>
+
+	<body>
+		<SideBar client:load />
 		<slot />
-	</main>
-</Theme>
+	</body>
+</html>
+
+<style is:global>
+	@import url('https://fonts.cdnfonts.com/css/roboto');
+</style>

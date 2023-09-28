@@ -1,8 +1,10 @@
 ---
+import Layout from '@/layouts/Wrapper.astro'
+import Header from '@/components/Header.astro'
 import Page from '@/components/pages/Dashboard'
 ---
 
-<main class="mx-auto max-w-5xl flex-1 py-4">
-	<!-- <slot /> -->
+<Layout>
+	<Header />
 	<Page />
-</main>
+</Layout>
