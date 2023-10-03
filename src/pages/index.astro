@@ -1,5 +1,8 @@
 ---
-import Wrapper from '@/layouts/Layout.astro'
+import Wrapper from '@/layouts/Wrapper.astro'
+import Dashboard from './dashboard.astro'
 ---
 
-<Wrapper />
+<Wrapper activeNav="dashboard">
+	<Dashboard />
+</Wrapper>

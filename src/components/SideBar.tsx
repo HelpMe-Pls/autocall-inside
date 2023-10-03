@@ -11,7 +11,7 @@ import { BsPerson } from 'react-icons/bs'
 import { TbReportAnalytics } from 'react-icons/tb'
 import { RiBuilding3Line } from 'react-icons/ri'
 
-const Sidebar = ({ activeNav }: { activeNav: string }) => {
+const Sidebar = ({ activeTab }: { activeTab: string }) => {
 	const [open, setOpen] = useState(false)
 	const sidebarRef = useRef(null)
 
@@ -65,14 +65,14 @@ const Sidebar = ({ activeNav }: { activeNav: string }) => {
 						text="All Apps"
 						path={'/dashboard'}
 						isSidebarExpanded={open}
-						styles={activeNav === 'dashboard' && 'active'}
+						styles={activeTab === 'dashboard' && 'active'}
 						icon={<AiOutlineAppstore size={23} className="min-w-max" />}
 					/>
 					<SingleNavItem
 						path={'/customers'}
 						text="Authentication"
 						isSidebarExpanded={open}
-						styles={activeNav === 'customers' && 'active'}
+						styles={activeTab === 'customers' && 'active'}
 						icon={<BsPerson size={23} className="min-w-max" />}
 					/>
 
@@ -82,7 +82,7 @@ const Sidebar = ({ activeNav }: { activeNav: string }) => {
 								<SubMenu
 									data={menu}
 									isSidebarExpanded={open}
-									styles={activeNav}
+									styles={activeTab}
 								/>
 							</div>
 						))}
@@ -92,7 +92,7 @@ const Sidebar = ({ activeNav }: { activeNav: string }) => {
 						path={'/other'}
 						text="Settings"
 						isSidebarExpanded={open}
-						styles={activeNav === 'other' && 'active'}
+						styles={activeTab === 'other' && 'active'}
 						icon={<SlSettings size={23} className="min-w-max" />}
 					/>
 				</ul>

@@ -1,0 +1,17 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import SideBar from '@/components/SideBar'
+
+export interface Props {
+	activeNav: 'dashboard' | 'customers' | 'dropdown1' | 'dropdown2' | 'other'
+}
+
+const { activeNav } = Astro.props
+---
+
+<Layout>
+	<SideBar activeTab={activeNav} />
+	<main class="flex-1">
+		<slot />
+	</main>
+</Layout>
