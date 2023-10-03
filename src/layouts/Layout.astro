@@ -1,7 +1,7 @@
 ---
-import SideBar from '../components/SideBar.tsx'
+import { ViewTransitions } from 'astro:transitions'
 
-import '../styles/index.css'
+import '@/styles/index.css'
 ---
 
 <!doctype html>
@@ -14,14 +14,10 @@ import '../styles/index.css'
 		<title>Autocall Inside</title>
 
 		<meta name="author" content="Khoi Le" />
+		<ViewTransitions />
 	</head>
 
 	<body>
-		<SideBar client:load />
 		<slot />
 	</body>
 </html>
-
-<style is:global>
-	@import url('https://fonts.cdnfonts.com/css/roboto');
-</style>

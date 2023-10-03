@@ -11,7 +11,7 @@ import { BsPerson } from 'react-icons/bs'
 import { TbReportAnalytics } from 'react-icons/tb'
 import { RiBuilding3Line } from 'react-icons/ri'
 
-const Sidebar = () => {
+const Sidebar = ({ activeNav }: { activeNav: string }) => {
 	const [open, setOpen] = useState(false)
 	const sidebarRef = useRef(null)
 
@@ -34,12 +34,12 @@ const Sidebar = () => {
 		{
 			name: 'build',
 			icon: RiBuilding3Line,
-			menus: ['auth', 'app-settings', 'storage', 'hosting'],
+			items: ['auth', 'app-settings', 'storage', 'hosting'],
 		},
 		{
 			name: 'analytics',
 			icon: TbReportAnalytics,
-			menus: ['dashboard', 'realtime', 'events'],
+			items: ['dashboard', 'realtime', 'events'],
 		},
 	]
 
@@ -62,22 +62,28 @@ const Sidebar = () => {
 			<div className="flex flex-col">
 				<ul className=" flex h-[calc(100vh-108px)] flex-col gap-1 px-2.5 pt-5 text-[0.9rem]  font-medium">
 					<SingleNavItem
-						path={'/dashboard'}
 						text="All Apps"
+						path={'/dashboard'}
 						isSidebarExpanded={open}
+						styles={activeNav === 'dashboard' && 'active'}
 						icon={<AiOutlineAppstore size={23} className="min-w-max" />}
 					/>
 					<SingleNavItem
 						path={'/customers'}
 						text="Authentication"
 						isSidebarExpanded={open}
+						styles={activeNav === 'customers' && 'active'}
 						icon={<BsPerson size={23} className="min-w-max" />}
 					/>
 
 					<div className="border-slate-300 ">
 						{subMenusList?.map((menu) => (
 							<div key={menu.name} className="flex flex-col gap-1">
-								<SubMenu data={menu} isSidebarExpanded={open} />
+								<SubMenu
+									data={menu}
+									isSidebarExpanded={open}
+									styles={activeNav}
+								/>
 							</div>
 						))}
 					</div>
@@ -86,6 +92,7 @@ const Sidebar = () => {
 						path={'/other'}
 						text="Settings"
 						isSidebarExpanded={open}
+						styles={activeNav === 'other' && 'active'}
 						icon={<SlSettings size={23} className="min-w-max" />}
 					/>
 				</ul>
@@ -117,8 +124,8 @@ const Sidebar = () => {
 	)
 }
 
-const SingleNavItem = ({ path, icon, text, isSidebarExpanded }) => (
-	<li className="link group relative">
+const SingleNavItem = ({ path, icon, text, styles, isSidebarExpanded }) => (
+	<li className={`link group relative ${styles}`}>
 		<a href={path}>
 			{icon}
 			<span className="whitespace-nowrap">{isSidebarExpanded && text}</span>

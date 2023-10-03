@@ -2,16 +2,16 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { IoIosArrowDown } from 'react-icons/io'
-import { useLocation } from 'react-router-dom'
+// import { useLocation } from 'react-router-dom'
 
-const DropdownMenu = ({ data, isSidebarExpanded }) => {
-	const { pathname } = useLocation()
+const DropdownMenu = ({ data, isSidebarExpanded, activeNav }) => {
+	// const { pathname } = useLocation()
 	const [subMenuOpen, setSubMenuOpen] = useState(false)
 	return (
 		<>
 			<li
 				className={`link group relative ${
-					pathname.includes(data.name) && 'text-blue-600'
+					data.items.some((item) => item.includes(activeNav)) && 'text-blue-600'
 				}`}
 				onClick={() => setSubMenuOpen(!subMenuOpen)}
 			>
@@ -24,14 +24,17 @@ const DropdownMenu = ({ data, isSidebarExpanded }) => {
 						<p>{data.name}</p>
 						<hr className="border-slate-300" />
 						<div>
-							{data.menus?.map((menu) => (
+							{data.items?.map((menu) => (
 								<li key={menu}>
-									<NavLink
-										to={`/${data.name}/${menu}`}
-										className="link capitalize hover:bg-sky-200"
+									<a
+										href={`/${data.name}/${menu}`}
+										className={`link capitalize hover:bg-sky-200 ${
+											data.items.some((tab) => tab.includes(activeNav)) &&
+											'active'
+										}`}
 									>
 										{menu.split('-').join(' ')}
-									</NavLink>
+									</a>
 								</li>
 							))}
 						</div>
@@ -55,7 +58,7 @@ const DropdownMenu = ({ data, isSidebarExpanded }) => {
 				}
 				className="flex h-0 flex-col overflow-hidden pl-14 text-[0.8rem] font-normal"
 			>
-				{data.menus?.map((menu) => (
+				{data.items?.map((menu) => (
 					<li key={menu}>
 						<a href={`/${data.name}/${menu}`} className="link capitalize">
 							{menu.split('-').join(' ')}
