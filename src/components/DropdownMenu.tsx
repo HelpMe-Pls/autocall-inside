@@ -1,11 +1,10 @@
 //@ts-nocheck
+
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { IoIosArrowDown } from 'react-icons/io'
-// import { useLocation } from 'react-router-dom'
 
-const DropdownMenu = ({ data, isSidebarExpanded, activeNav }) => {
-	// const { pathname } = useLocation()
+const SubMenu = ({ data, isSidebarExpanded, activeNav }) => {
 	const [subMenuOpen, setSubMenuOpen] = useState(false)
 	return (
 		<>
@@ -24,14 +23,11 @@ const DropdownMenu = ({ data, isSidebarExpanded, activeNav }) => {
 						<p>{data.name}</p>
 						<hr className="border-slate-300" />
 						<div>
-							{data.items?.map((menu) => (
+							{data.items.map((menu) => (
 								<li key={menu}>
 									<a
 										href={`/${data.name}/${menu}`}
-										className={`link capitalize hover:bg-sky-200 ${
-											data.items.some((tab) => tab.includes(activeNav)) &&
-											'active'
-										}`}
+										className="link capitalize hover:bg-sky-200"
 									>
 										{menu.split('-').join(' ')}
 									</a>
@@ -58,7 +54,7 @@ const DropdownMenu = ({ data, isSidebarExpanded, activeNav }) => {
 				}
 				className="flex h-0 flex-col overflow-hidden pl-14 text-[0.8rem] font-normal"
 			>
-				{data.items?.map((menu) => (
+				{data.items.map((menu) => (
 					<li key={menu}>
 						<a href={`/${data.name}/${menu}`} className="link capitalize">
 							{menu.split('-').join(' ')}
@@ -70,4 +66,4 @@ const DropdownMenu = ({ data, isSidebarExpanded, activeNav }) => {
 	)
 }
 
-export default DropdownMenu
+export default SubMenu

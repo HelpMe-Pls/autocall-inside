@@ -1,7 +1,8 @@
 ---
-import Header from '@/components/Header.astro'
+import Wrapper from '@/layouts/Wrapper.astro'
+import Main from '@/components/pages/Dashboard'
 ---
 
-<!-- <div class="bg-red-600"> -->
-<Header />
-<!-- </div> -->
+<Wrapper activeNav="dashboard">
+	<Main />
+</Wrapper>

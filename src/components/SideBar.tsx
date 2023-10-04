@@ -1,4 +1,5 @@
 //@ts-nocheck
+
 import { useState, useRef } from 'react'
 import SubMenu from './DropdownMenu'
 import { motion } from 'framer-motion'
@@ -11,9 +12,9 @@ import { BsPerson } from 'react-icons/bs'
 import { TbReportAnalytics } from 'react-icons/tb'
 import { RiBuilding3Line } from 'react-icons/ri'
 
-const Sidebar = ({ activeTab }: { activeTab: string }) => {
+const Sidebar = () => {
 	const [open, setOpen] = useState(false)
-	const sidebarRef = useRef(null)
+	const sidebarRef = useRef()
 
 	const Nav_animation = {
 		open: {
@@ -39,94 +40,89 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 		{
 			name: 'analytics',
 			icon: TbReportAnalytics,
-			items: ['dashboard', 'realtime', 'events'],
+			items: ['realtime', 'events'],
 		},
 	]
 
 	return (
-		<motion.div
-			ref={sidebarRef}
-			variants={Nav_animation}
-			initial={{ x: 0 }}
-			animate={open ? 'open' : 'closed'}
-			className="text-gray relative min-h-screen max-w-xs bg-white shadow-sm"
-		>
-			<div className="mx-3 flex h-14 items-center gap-2.5 border-b border-slate-300 py-3 font-medium">
-				<img
-					src="https://img.icons8.com/color/512/firebase.png"
-					width={45}
-					alt="logo"
-				/>
-				{open && <span className="whitespace-pre text-xl">Portal</span>}
-			</div>
-			<div className="flex flex-col">
-				<ul className=" flex h-[calc(100vh-108px)] flex-col gap-1 px-2.5 pt-5 text-[0.9rem]  font-medium">
-					<SingleNavItem
-						text="All Apps"
-						path={'/dashboard'}
-						isSidebarExpanded={open}
-						styles={activeTab === 'dashboard' && 'active'}
-						icon={<AiOutlineAppstore size={23} className="min-w-max" />}
-					/>
-					<SingleNavItem
-						path={'/customers'}
-						text="Authentication"
-						isSidebarExpanded={open}
-						styles={activeTab === 'customers' && 'active'}
-						icon={<BsPerson size={23} className="min-w-max" />}
-					/>
-
-					<div className="border-slate-300 ">
-						{subMenusList?.map((menu) => (
-							<div key={menu.name} className="flex flex-col gap-1">
-								<SubMenu
-									data={menu}
-									isSidebarExpanded={open}
-									styles={activeTab}
-								/>
-							</div>
-						))}
-					</div>
-
-					<SingleNavItem
-						path={'/other'}
-						text="Settings"
-						isSidebarExpanded={open}
-						styles={activeTab === 'other' && 'active'}
-						icon={<SlSettings size={23} className="min-w-max" />}
-					/>
-				</ul>
-				<div className="mx-2.5 border-b border-slate-300" />
-			</div>
+		<div>
 			<motion.div
-				onClick={() => {
-					setOpen(!open)
-				}}
-				animate={
-					open
-						? {
-								x: 0,
-								y: 0,
-								rotate: 0,
-						  }
-						: {
-								x: -10,
-								y: 0,
-								rotate: 180,
-						  }
-				}
-				transition={{ duration: 0 }}
-				className="absolute bottom-3 right-2 h-fit w-fit cursor-pointer"
+				ref={sidebarRef}
+				variants={Nav_animation}
+				initial={{ x: 0 }}
+				animate={open ? 'open' : 'closed'}
+				className="text-gray relative min-h-screen max-w-xs bg-white shadow-sm"
 			>
-				<IoIosArrowBack size={25} />
+				<div className="mx-3 flex h-14 items-center gap-2.5 border-b border-slate-300 py-3 font-medium">
+					<img
+						src="https://img.icons8.com/color/512/firebase.png"
+						width={45}
+						alt="logo"
+					/>
+					{open && <span className="whitespace-pre text-xl">Fireball</span>}
+				</div>
+				<div className="flex flex-col">
+					<ul className=" flex h-[calc(100vh-108px)] flex-col gap-1 px-2.5 pt-5 text-[0.9rem]  font-medium">
+						<SingleNavItem
+							path={'/dashboard'}
+							text="All Apps"
+							isSidebarExpanded={open}
+							icon={<AiOutlineAppstore size={23} className="min-w-max" />}
+						/>
+						<SingleNavItem
+							path={'/customers'}
+							text="Customers"
+							isSidebarExpanded={open}
+							icon={<BsPerson size={23} className="min-w-max" />}
+						/>
+
+						<div className="border-slate-300 ">
+							{subMenusList?.map((menu) => (
+								<div key={menu.name} className="flex flex-col gap-1">
+									<SubMenu data={menu} isSidebarExpanded={open} />
+								</div>
+							))}
+						</div>
+
+						<SingleNavItem
+							path={'/other'}
+							text="Other"
+							isSidebarExpanded={open}
+							icon={<SlSettings size={23} className="min-w-max" />}
+						/>
+					</ul>
+					<div className="mx-2.5 border-b border-slate-300" />
+				</div>
+				<motion.div
+					onClick={() => {
+						setOpen(!open)
+					}}
+					animate={
+						open
+							? {
+									x: 0,
+									y: 0,
+									rotate: 0,
+							  }
+							: {
+									x: -10,
+									y: 0,
+									rotate: 180,
+							  }
+					}
+					transition={{ duration: 0 }}
+					className="absolute bottom-3 right-2 h-fit w-fit cursor-pointer"
+				>
+					<IoIosArrowBack size={25} />
+				</motion.div>
 			</motion.div>
-		</motion.div>
+		</div>
 	)
 }
 
-const SingleNavItem = ({ path, icon, text, styles, isSidebarExpanded }) => (
-	<li className={`link group relative ${styles}`}>
-		<a href={path}>
+const SingleNavItem = ({ path, icon, text, isSidebarExpanded }) => (
+	<li>
+		<a href={path} className="link group relative">
 			{icon}
 			<span className="whitespace-nowrap">{isSidebarExpanded && text}</span>
 			{!isSidebarExpanded && (
