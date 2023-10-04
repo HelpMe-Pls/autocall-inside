@@ -4,15 +4,24 @@ import SideBar from '@/components/SideBar'
 import Header from '@/components/Header.astro'
 
 export interface Props {
-	activeNav: 'dashboard' | 'customers' | 'dropdown1' | 'dropdown2' | 'other'
+	activeNav:
+		| 'dashboard'
+		| 'customers'
+		| 'auth'
+		| 'app-settings'
+		| 'storage'
+		| 'hosting'
+		| 'realtime'
+		| 'events'
+		| 'other'
 }
 
 const { activeNav } = Astro.props
 ---
 
-<Layout>
-	<SideBar activeTab={activeNav} />
-	<main class="flex-1">
+<Layout class="flex">
+	<SideBar client:only="react" activeTab={activeNav} />
+	<main class="flex-1 overflow-auto">
 		<Header />
 		<slot />
 	</main>

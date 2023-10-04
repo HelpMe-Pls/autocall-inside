@@ -12,8 +12,8 @@ import { BsPerson } from 'react-icons/bs'
 import { TbReportAnalytics } from 'react-icons/tb'
 import { RiBuilding3Line } from 'react-icons/ri'
 
-const Sidebar = () => {
-	const [open, setOpen] = useState(false)
+const Sidebar = ({ activeTab }: { activeTab: string }) => {
+	const [open, setOpen] = useState(true)
 	const sidebarRef = useRef()
 
 	const Nav_animation = {

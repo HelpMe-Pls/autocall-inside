@@ -9,5 +9,5 @@ export default defineConfig({
 	server: {
 		port: 6996,
 	},
-	integrations: [react(), tailwind()],
+	integrations: [react(), tailwind({ applyBaseStyles: false })],
 })
