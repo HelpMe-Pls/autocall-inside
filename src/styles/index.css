@@ -21,7 +21,7 @@
 }
 
 .link {
-  @apply p-2.5 flex rounded-md gap-6 items-center cursor-pointer duration-300 font-medium hover:bg-sky-100;
+  @apply p-2.5 flex rounded-md gap-6 items-center cursor-pointer duration-300 hover:bg-sky-100;
 }
 
 .active {

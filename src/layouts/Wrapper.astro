@@ -19,8 +19,8 @@ export interface Props {
 const { activeNav } = Astro.props
 ---
 
-<Layout class="flex">
-	<SideBar client:only="react" activeTab={activeNav} />
+<Layout>
+	<SideBar client:load activeTab={activeNav} />
 	<main class="flex-1 overflow-auto">
 		<Header />
 		<slot />

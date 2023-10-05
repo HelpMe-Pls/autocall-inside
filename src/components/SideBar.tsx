@@ -45,13 +45,13 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 	]
 
 	return (
-		<div>
+		<div className="w-64">
 			<motion.div
 				ref={sidebarRef}
 				variants={Nav_animation}
 				initial={{ x: 0 }}
 				animate={open ? 'open' : 'closed'}
-				className="text-gray relative min-h-screen max-w-xs bg-white shadow-sm"
+				className="relative min-h-screen max-w-xs bg-white shadow-sm"
 			>
 				<div className="mx-3 flex h-14 items-center gap-2.5 border-b border-slate-300 py-3 font-medium">
 					<img
