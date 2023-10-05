@@ -51,21 +51,23 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 				variants={Nav_animation}
 				initial={{ x: 0 }}
 				animate={open ? 'open' : 'closed'}
-				className="relative min-h-screen max-w-xs bg-white shadow-sm"
+				className="sticky top-0 min-h-screen max-w-xs bg-white shadow-sm"
 			>
-				<div className="mx-3 flex h-14 items-center gap-2.5 border-b border-slate-300 py-3 font-medium">
-					<img
-						src="https://img.icons8.com/color/512/firebase.png"
-						width={45}
-						alt="logo"
-					/>
-					{open && <span className="whitespace-pre text-xl">Fireball</span>}
-				</div>
+				<a href="/dashboard">
+					<div className="mx-3 flex h-14 items-center gap-2.5 border-b border-slate-300 py-3 font-medium">
+						<img
+							src="https://img.icons8.com/color/512/firebase.png"
+							width={45}
+							alt="logo"
+						/>
+						{open && <span className="whitespace-pre text-xl">Fireball</span>}
+					</div>
+				</a>
 				<div className="flex flex-col">
 					<ul className=" flex h-[calc(100vh-108px)] flex-col gap-1 px-2.5 pt-5 text-[0.9rem]  font-medium">
 						<SingleNavItem
 							path={'/dashboard'}
-							text="All Apps"
+							text="Dashboard"
 							isSidebarExpanded={open}
 							icon={<AiOutlineAppstore size={23} className="min-w-max" />}
 						/>
