@@ -4,9 +4,22 @@
   "useTabs": true,
   "semi": false,
   "singleQuote": true,
+  "pluginSearchDirs": false,
+  "arrowParens": "avoid",
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "embeddedLanguageFormatting": "auto",
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "jsxSingleQuote": false,
+  "printWidth": 80,
+  "proseWrap": "always",
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "singleAttributePerLine": false,
   "plugins": [
     "prettier-plugin-astro",
     "prettier-plugin-tailwindcss"
-  ],
-  "pluginSearchDirs": false
+  ]
 }

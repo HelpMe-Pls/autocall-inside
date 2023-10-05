@@ -1,6 +1,8 @@
 //@ts-nocheck
 
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
+import { useStore } from '@nanostores/react'
+import { isSidebarExpanded } from '@/stores/sidebar'
 import SubMenu from './DropdownMenu'
 import { motion } from 'framer-motion'
 
@@ -13,7 +15,7 @@ import { TbReportAnalytics } from 'react-icons/tb'
 import { RiBuilding3Line } from 'react-icons/ri'
 
 const Sidebar = ({ activeTab }: { activeTab: string }) => {
-	const [open, setOpen] = useState(true)
+	const $open = useStore(isSidebarExpanded)
 	const sidebarRef = useRef()
 
 	const Nav_animation = {
@@ -23,7 +25,7 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 				damping: 40,
 			},
 		},
-		closed: {
+		close: {
 			width: '4rem',
 			transition: {
 				damping: 40,
@@ -45,13 +47,13 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 	]
 
 	return (
-		<div className="w-64">
+		<div>
 			<motion.div
 				ref={sidebarRef}
 				variants={Nav_animation}
 				initial={{ x: 0 }}
-				animate={open ? 'open' : 'closed'}
-				className="sticky top-0 min-h-screen max-w-xs bg-white shadow-sm"
+				animate={$open ? 'open' : 'close'}
+				className="sticky top-0 min-h-screen w-64 bg-white shadow-sm"
 			>
 				<a href="/dashboard">
 					<div className="mx-3 flex h-14 items-center gap-2.5 border-b border-slate-300 py-3 font-medium">
@@ -60,7 +62,7 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 							width={45}
 							alt="logo"
 						/>
-						{open && <span className="whitespace-pre text-xl">Fireball</span>}
+						{$open && <span className="whitespace-pre text-xl">Fireball</span>}
 					</div>
 				</a>
 				<div className="flex flex-col">
@@ -68,20 +70,20 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 						<SingleNavItem
 							path={'/dashboard'}
 							text="Dashboard"
-							isSidebarExpanded={open}
+							isSidebarExpanded={$open}
 							icon={<AiOutlineAppstore size={23} className="min-w-max" />}
 						/>
 						<SingleNavItem
 							path={'/customers'}
 							text="Customers"
-							isSidebarExpanded={open}
+							isSidebarExpanded={$open}
 							icon={<BsPerson size={23} className="min-w-max" />}
 						/>
 
 						<div className="border-slate-300 ">
-							{subMenusList?.map((menu) => (
+							{subMenusList?.map(menu => (
 								<div key={menu.name} className="flex flex-col gap-1">
-									<SubMenu data={menu} isSidebarExpanded={open} />
+									<SubMenu data={menu} isSidebarExpanded={$open} />
 								</div>
 							))}
 						</div>
@@ -89,7 +91,7 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 						<SingleNavItem
 							path={'/other'}
 							text="Other"
-							isSidebarExpanded={open}
+							isSidebarExpanded={$open}
 							icon={<SlSettings size={23} className="min-w-max" />}
 						/>
 					</ul>
@@ -97,10 +99,10 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 				</div>
 				<motion.div
 					onClick={() => {
-						setOpen(!open)
+						isSidebarExpanded.set(!$open)
 					}}
 					animate={
-						open
+						$open
 							? {
 									x: 0,
 									y: 0,
