@@ -1,9 +1,5 @@
 //@ts-nocheck
-
-import { useRef } from 'react'
-import { useStore } from '@nanostores/react'
-import { isSidebarExpanded } from '@/stores/sidebar'
-import SubMenu from './DropdownMenu'
+import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
 // * React icons
@@ -14,8 +10,15 @@ import { BsPerson } from 'react-icons/bs'
 import { TbReportAnalytics } from 'react-icons/tb'
 import { RiBuilding3Line } from 'react-icons/ri'
 
-const Sidebar = ({ activeTab }: { activeTab: string }) => {
-	const $open = useStore(isSidebarExpanded)
+import { cn } from '@/utils/clsx'
+import { isSidebarExpanded } from '@/stores/sidebar'
+import SubMenu from './DropdownMenu'
+
+const Sidebar = ({ activeTab = 'dashboard' }: { activeTab: string }) => {
+	// FIXME: Unexpected behavior when the <Sidebar/> is closing: when you change tabs, the <Sidebar/> renders as if it's `$open == true` for like 3ms, then the `false` value kicks in. What I want is the <Sidebar/> should stay closed when changing the tabs
+	const $open = isSidebarExpanded.get()
+	const [isExpanded, setIsExpanded] = useState($open)
+
 	const sidebarRef = useRef()
 
 	const Nav_animation = {
@@ -46,14 +49,20 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 		},
 	]
 
+	// Perhaps this issue is somewhat related to state management in server-side rendering? My train of thoughts were to get `useEffect()` to sync that state, and obviously, that didn't work
+	// useEffect(() => setIsExpanded($open), [$open])
+
 	return (
 		<div>
 			<motion.div
 				ref={sidebarRef}
 				variants={Nav_animation}
 				initial={{ x: 0 }}
-				animate={$open ? 'open' : 'close'}
-				className="sticky top-0 min-h-screen w-64 bg-white shadow-sm"
+				animate={isExpanded ? 'open' : 'close'}
+				className={cn(
+					'sticky top-0 min-h-screen w-16 bg-white shadow-sm',
+					isExpanded && 'w-64'
+				)}
 			>
 				<a href="/dashboard">
 					<div className="mx-3 flex h-14 items-center gap-2.5 border-b border-slate-300 py-3 font-medium">
@@ -62,7 +71,9 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 							width={45}
 							alt="logo"
 						/>
-						{$open && <span className="whitespace-pre text-xl">Fireball</span>}
+						{isExpanded && (
+							<span className="whitespace-pre text-xl">Fireball</span>
+						)}
 					</div>
 				</a>
 				<div className="flex flex-col">
@@ -70,20 +81,20 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 						<SingleNavItem
 							path={'/dashboard'}
 							text="Dashboard"
-							isSidebarExpanded={$open}
+							isSidebarExpanded={isExpanded}
 							icon={<AiOutlineAppstore size={23} className="min-w-max" />}
 						/>
 						<SingleNavItem
 							path={'/customers'}
 							text="Customers"
-							isSidebarExpanded={$open}
+							isSidebarExpanded={isExpanded}
 							icon={<BsPerson size={23} className="min-w-max" />}
 						/>
 
 						<div className="border-slate-300 ">
 							{subMenusList?.map(menu => (
 								<div key={menu.name} className="flex flex-col gap-1">
-									<SubMenu data={menu} isSidebarExpanded={$open} />
+									<SubMenu data={menu} isSidebarExpanded={isExpanded} />
 								</div>
 							))}
 						</div>
@@ -91,7 +102,7 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 						<SingleNavItem
 							path={'/other'}
 							text="Other"
-							isSidebarExpanded={$open}
+							isSidebarExpanded={isExpanded}
 							icon={<SlSettings size={23} className="min-w-max" />}
 						/>
 					</ul>
@@ -99,10 +110,11 @@ const Sidebar = ({ activeTab }: { activeTab: string }) => {
 				</div>
 				<motion.div
 					onClick={() => {
-						isSidebarExpanded.set(!$open)
+						setIsExpanded(!isExpanded)
+						isSidebarExpanded.set(!isExpanded)
 					}}
 					animate={
-						$open
+						isExpanded
 							? {
 									x: 0,
 									y: 0,
