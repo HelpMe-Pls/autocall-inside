@@ -72,7 +72,7 @@ const Sidebar = ({ activeTab = 'dashboard' }: { activeTab: string }) => {
 							alt="logo"
 						/>
 						{isExpanded && (
-							<span className="whitespace-pre text-xl">Fireball</span>
+							<span className="whitespace-pre text-xl">Portal</span>
 						)}
 					</div>
 				</a>
